@@ -1,0 +1,1114 @@
+INFO:data_fetcher:Configured proxy: http://cba.proxy.prismaaccess.com:8080 (SSL verification disabled)
+INFO:     Started server process [36868]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+Starting Quant Trading Platform on port 8001...
+Server: http://localhost:8001
+Press Ctrl+C to stop
+------------------------------
+INFO:     127.0.0.1:53004 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53004 - "GET /static/src/app.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53004 - "GET /api/screener-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53005 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53005 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53004 - "GET /api/popular-symbols HTTP/1.1" 200 OK
+INFO:api.main:Fetching data for symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA']
+INFO:data_fetcher:Successfully fetched 250 days of AAPL data via API
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+INFO:data_fetcher:Successfully fetched 250 days of MSFT data via API
+ERROR:data_fetcher:Yahoo quote API error 401 for MSFT
+WARNING:data_fetcher:No live info for MSFT, using demo data
+INFO:data_fetcher:Successfully fetched 250 days of GOOGL data via API
+ERROR:data_fetcher:Yahoo quote API error 401 for GOOGL
+WARNING:data_fetcher:No live info for GOOGL, using demo data
+INFO:data_fetcher:Successfully fetched 250 days of AMZN data via API
+ERROR:data_fetcher:Yahoo quote API error 401 for AMZN
+WARNING:data_fetcher:No live info for AMZN, using demo data
+INFO:data_fetcher:Successfully fetched 250 days of TSLA data via API
+ERROR:data_fetcher:Yahoo quote API error 401 for TSLA
+WARNING:data_fetcher:No live info for TSLA, using demo data
+INFO:     127.0.0.1:58878 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:api.main:Fetching data for symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA']
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for MSFT
+WARNING:data_fetcher:No live info for MSFT, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for GOOGL
+WARNING:data_fetcher:No live info for GOOGL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for AMZN
+WARNING:data_fetcher:No live info for AMZN, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for TSLA
+WARNING:data_fetcher:No live info for TSLA, using demo data
+INFO:     127.0.0.1:58878 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58878 - "POST /api/get-backtest-suggestions HTTP/1.1" 200 OK
+INFO:api.main:Running integrated backtest for symbols: ['AMZN', 'TSLA']
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-04-07
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-04-14
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-04-21
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-04-28
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-05-05
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-05-12
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-05-19
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-02
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-09
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-16
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-23
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-30
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-07
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-14
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-21
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-28
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-08-04
+INFO:     127.0.0.1:58880 - "POST /api/run-integrated-backtest HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 339, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 190, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 47, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 193, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Program Files\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant: inf
+INFO:     127.0.0.1:55613 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55614 - "GET /api/screener-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55615 - "GET /api/backtest-presets HTTP/1.1" 200 OK
+INFO:api.main:Fetching data for symbols: ['AAPL', 'MSFT']
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for MSFT
+WARNING:data_fetcher:No live info for MSFT, using demo data
+INFO:     127.0.0.1:55616 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55619 - "POST /api/get-backtest-suggestions HTTP/1.1" 200 OK
+INFO:api.main:Running integrated backtest for symbols: ['MSFT', 'MSFT']
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2024-12-03
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-05-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-02
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-08-01
+INFO:     127.0.0.1:55620 - "POST /api/run-integrated-backtest HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 339, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 190, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 47, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 193, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Program Files\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant: inf
+INFO:     127.0.0.1:55621 - "GET / HTTP/1.1" 200 OK
+INFO:api.main:Running integrated backtest for symbols: ['AAPL', 'MSFT']
+INFO:strategies.screener_backtest_integration:Screener strategy selected 2 stocks on 2024-12-03
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-01-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-05-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-02
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-08-01
+INFO:     127.0.0.1:65270 - "POST /api/run-integrated-backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52040 - "GET /api/health HTTP/1.1" 200 OK
+INFO:api.main:Fetching data for symbols: ['AAPL', 'MSFT']
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for MSFT
+WARNING:data_fetcher:No live info for MSFT, using demo data
+INFO:     127.0.0.1:52041 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:api.main:Running integrated backtest for symbols: ['MSFT', 'MSFT']
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2024-12-03
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-05-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-02
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-08-01
+INFO:     127.0.0.1:63320 - "POST /api/run-integrated-backtest HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 339, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 190, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 47, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 193, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Program Files\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant: inf
+INFO:     127.0.0.1:63321 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56632 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56632 - "GET /static/src/app.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56632 - "GET /api/screener-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56632 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56632 - "GET /api/popular-symbols HTTP/1.1" 200 OK
+INFO:api.main:Fetching data for symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META', 'NVDA', 'NFLX', 'JPM', 'V']
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for MSFT
+WARNING:data_fetcher:No live info for MSFT, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for GOOGL
+WARNING:data_fetcher:No live info for GOOGL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for AMZN
+WARNING:data_fetcher:No live info for AMZN, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for TSLA
+WARNING:data_fetcher:No live info for TSLA, using demo data
+INFO:data_fetcher:Successfully fetched 250 days of META data via API
+ERROR:data_fetcher:Yahoo quote API error 401 for META
+WARNING:data_fetcher:No live info for META, using demo data
+INFO:data_fetcher:Successfully fetched 250 days of NVDA data via API
+ERROR:data_fetcher:Yahoo quote API error 401 for NVDA
+WARNING:data_fetcher:No live info for NVDA, using demo data
+INFO:data_fetcher:Successfully fetched 250 days of NFLX data via API
+ERROR:data_fetcher:Yahoo quote API error 401 for NFLX
+WARNING:data_fetcher:No live info for NFLX, using demo data
+INFO:data_fetcher:Successfully fetched 250 days of JPM data via API
+ERROR:data_fetcher:Yahoo quote API error 401 for JPM
+WARNING:data_fetcher:No live info for JPM, using demo data
+INFO:data_fetcher:Successfully fetched 250 days of V data via API
+ERROR:data_fetcher:Yahoo quote API error 401 for V
+WARNING:data_fetcher:No live info for V, using demo data
+INFO:     127.0.0.1:56635 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56635 - "POST /api/get-backtest-suggestions HTTP/1.1" 200 OK
+INFO:api.main:Running integrated backtest for symbols: ['MSFT', 'AMZN', 'AMZN', 'TSLA', 'TSLA', 'JPM', 'JPM']
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-04-07
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-04-14
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-04-21
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-04-28
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-05-05
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-05-12
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-05-19
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-06-02
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-06-09
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-06-16
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-06-23
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-06-30
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-07-07
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-07-14
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-07-21
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-07-28
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-08-04
+INFO:     127.0.0.1:56635 - "POST /api/run-integrated-backtest HTTP/1.1" 200 OK
+INFO:api.main:Running backtest for symbols: ['AAPL']
+INFO:data_fetcher:Successfully fetched 501 days of AAPL data via API
+INFO:     127.0.0.1:56636 - "POST /api/backtest HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 339, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 190, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 47, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 193, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Program Files\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant: inf
+INFO:api.main:Running backtest for symbols: ['AAPL']
+INFO:     127.0.0.1:56518 - "POST /api/backtest HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 339, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 190, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 47, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 193, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Program Files\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant: inf
+INFO:api.main:Fetching data for symbols: ['AAPL']
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+INFO:     127.0.0.1:56519 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:api.main:Fetching data for symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META', 'NVDA', 'NFLX', 'JPM', 'V']
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for MSFT
+WARNING:data_fetcher:No live info for MSFT, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for GOOGL
+WARNING:data_fetcher:No live info for GOOGL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for AMZN
+WARNING:data_fetcher:No live info for AMZN, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for TSLA
+WARNING:data_fetcher:No live info for TSLA, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for META
+WARNING:data_fetcher:No live info for META, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for NVDA
+WARNING:data_fetcher:No live info for NVDA, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for NFLX
+WARNING:data_fetcher:No live info for NFLX, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for JPM
+WARNING:data_fetcher:No live info for JPM, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for V
+WARNING:data_fetcher:No live info for V, using demo data
+INFO:     127.0.0.1:56519 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56447 - "POST /api/get-backtest-suggestions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58757 - "GET /api/health HTTP/1.1" 200 OK
+INFO:api.main:Fetching data for symbols: ['AAPL', 'MSFT']
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for MSFT
+WARNING:data_fetcher:No live info for MSFT, using demo data
+INFO:     127.0.0.1:58758 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:api.main:Running integrated backtest for symbols: ['MSFT', 'MSFT']
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2024-12-03
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-05-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-02
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-08-01
+INFO:     127.0.0.1:56293 - "POST /api/run-integrated-backtest HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 339, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 190, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 47, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 193, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Program Files\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant: inf
+INFO:     127.0.0.1:56294 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51715 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51715 - "GET /static/src/app.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51715 - "GET /api/screener-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51715 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51715 - "GET /api/popular-symbols HTTP/1.1" 200 OK
+INFO:api.main:Fetching data for symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META', 'NVDA', 'NFLX', 'JPM', 'V']
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for MSFT
+WARNING:data_fetcher:No live info for MSFT, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for GOOGL
+WARNING:data_fetcher:No live info for GOOGL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for AMZN
+WARNING:data_fetcher:No live info for AMZN, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for TSLA
+WARNING:data_fetcher:No live info for TSLA, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for META
+WARNING:data_fetcher:No live info for META, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for NVDA
+WARNING:data_fetcher:No live info for NVDA, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for NFLX
+WARNING:data_fetcher:No live info for NFLX, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for JPM
+WARNING:data_fetcher:No live info for JPM, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for V
+WARNING:data_fetcher:No live info for V, using demo data
+INFO:     127.0.0.1:51718 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51719 - "POST /api/get-backtest-suggestions HTTP/1.1" 200 OK
+INFO:api.main:Running integrated backtest for symbols: ['NVDA', 'MSFT', 'AMZN', 'AMZN', 'JPM', 'AAPL', 'TSLA', 'NFLX', 'NVDA']
+INFO:strategies.screener_backtest_integration:Screener strategy selected 5 stocks on 2024-11-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 7 stocks on 2024-12-03
+INFO:strategies.screener_backtest_integration:Screener strategy selected 6 stocks on 2025-01-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 5 stocks on 2025-02-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 4 stocks on 2025-03-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 3 stocks on 2025-04-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 3 stocks on 2025-05-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 6 stocks on 2025-06-02
+INFO:strategies.screener_backtest_integration:Screener strategy selected 6 stocks on 2025-07-01
+INFO:strategies.screener_backtest_integration:Screener strategy selected 6 stocks on 2025-08-01
+INFO:     127.0.0.1:51113 - "POST /api/run-integrated-backtest HTTP/1.1" 200 OK
+INFO:api.main:Running backtest for symbols: ['AAPL', 'MSFT', 'GOOGL']
+INFO:data_fetcher:Successfully fetched 501 days of MSFT data via API
+INFO:data_fetcher:Successfully fetched 501 days of GOOGL data via API
+INFO:     127.0.0.1:51114 - "POST /api/backtest HTTP/1.1" 200 OK
+INFO:api.main:Running backtest for symbols: ['AAPL', 'MSFT', 'GOOGL']
+INFO:     127.0.0.1:54544 - "POST /api/backtest HTTP/1.1" 200 OK
+INFO:api.main:Running backtest for symbols: ['AAPL', 'MSFT', 'GOOGL']
+INFO:     127.0.0.1:54544 - "POST /api/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60728 - "GET /api/engine-status HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54261 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54261 - "GET /static/src/app.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54261 - "GET /api/screener-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54261 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54261 - "GET /api/popular-symbols HTTP/1.1" 200 OK
+INFO:api.main:Fetching data for symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA']
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for MSFT
+WARNING:data_fetcher:No live info for MSFT, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for GOOGL
+WARNING:data_fetcher:No live info for GOOGL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for AMZN
+WARNING:data_fetcher:No live info for AMZN, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for TSLA
+WARNING:data_fetcher:No live info for TSLA, using demo data
+INFO:     127.0.0.1:54263 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54263 - "POST /api/get-backtest-suggestions HTTP/1.1" 200 OK
+INFO:api.main:Running integrated backtest for symbols: ['GOOGL']
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-05-05
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-05-19
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-02
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-09
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-16
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-30
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-07
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-14
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-21
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-28
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-08-04
+INFO:     127.0.0.1:54264 - "POST /api/run-integrated-backtest HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 339, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 190, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 47, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 193, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Program Files\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant: inf
+INFO:     127.0.0.1:50980 - "GET /api/health HTTP/1.1" 200 OK
+INFO:api.main:Fetching data for symbols: ['AAPL']
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+INFO:     127.0.0.1:50981 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:api.main:Running integrated backtest for symbols: ['AAPL']
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2024-12-03
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-01-01
+INFO:     127.0.0.1:50983 - "POST /api/run-integrated-backtest HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 339, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 190, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 47, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 193, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Program Files\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant: inf
+INFO:     127.0.0.1:60138 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60138 - "GET /static/src/app.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:60138 - "GET /api/screener-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60138 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60138 - "GET /api/popular-symbols HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60055 - "GET /api/health HTTP/1.1" 200 OK
+INFO:api.main:Fetching data for symbols: ['AAPL']
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+INFO:     127.0.0.1:60056 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:api.main:Running integrated backtest for symbols: ['AAPL']
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2024-12-03
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-01-01
+INFO:     127.0.0.1:60058 - "POST /api/run-integrated-backtest HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 339, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 190, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 47, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 193, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Program Files\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant: inf
+INFO:api.main:Running integrated backtest for symbols: ['AAPL']
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2024-12-03
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-01-01
+INFO:     127.0.0.1:62743 - "POST /api/run-integrated-backtest HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 339, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 190, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 47, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 193, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Program Files\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant: inf
+INFO:     127.0.0.1:61249 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61249 - "GET /static/src/app.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:61249 - "GET /api/screener-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61249 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61249 - "GET /api/popular-symbols HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61251 - "GET /api/screener-types HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61252 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61252 - "GET /api/popular-symbols HTTP/1.1" 200 OK
+INFO:api.main:Fetching data for symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA']
+ERROR:data_fetcher:Yahoo quote API error 401 for AAPL
+WARNING:data_fetcher:No live info for AAPL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for MSFT
+WARNING:data_fetcher:No live info for MSFT, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for GOOGL
+WARNING:data_fetcher:No live info for GOOGL, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for AMZN
+WARNING:data_fetcher:No live info for AMZN, using demo data
+ERROR:data_fetcher:Yahoo quote API error 401 for TSLA
+WARNING:data_fetcher:No live info for TSLA, using demo data
+INFO:     127.0.0.1:61252 - "POST /api/screen-stocks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61252 - "POST /api/get-backtest-suggestions HTTP/1.1" 200 OK
+INFO:api.main:Running integrated backtest for symbols: ['GOOGL']
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-05-05
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-05-19
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-02
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-09
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-16
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-06-30
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-07
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-14
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-21
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-07-28
+INFO:strategies.screener_backtest_integration:Screener strategy selected 1 stocks on 2025-08-04
+INFO:     127.0.0.1:52056 - "POST /api/run-integrated-backtest HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 339, in app
+    response = actual_response_class(content, **response_args)
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 190, in __init__
+    super().__init__(content, status_code, headers, media_type, background)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 47, in __init__
+    self.body = self.render(content)
+                ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\kongd5\AppData\Roaming\Python\Python313\site-packages\starlette\responses.py", line 193, in render
+    return json.dumps(
+           ~~~~~~~~~~^
+        content,
+        ^^^^^^^^
+    ...<3 lines>...
+        separators=(",", ":"),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ).encode("utf-8")
+    ^
+  File "C:\Program Files\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant: inf

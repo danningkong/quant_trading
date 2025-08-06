@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quant Trading Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #1a1d23 0%, #2c3e50 100%);
+            color: white;
+        }
+        
+        .nav-link {
+            color: #bdc3c7 !important;
+            border-radius: 8px;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: #3498db;
+            color: white !important;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .positive {
+            color: #27ae60;
+        }
+        
+        .negative {
+            color: #e74c3c;
+        }
+        
+        .loading {
+            display: none;
+        }
+        
+        .stock-tag {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 16px;
+            font-size: 0.8em;
+            margin: 2px;
+        }
+        
+        .strategy-badge {
+            font-size: 0.75em;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+        
+        .score-high {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .score-medium {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .score-low {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        /* Stock selection styling */
+        .stock-checkbox:checked + label {
+            background-color: rgba(0, 123, 255, 0.1);
+            border-radius: 4px;
+            padding: 2px 8px;
+        }
+        
+        .form-check-label {
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .form-check-label:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            padding: 2px 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar p-3">
+                <h4 class="mb-4">
+                    <i class="fas fa-chart-line me-2"></i>
+                    Quant Trading
+                </h4>
+                
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="showScreen('dashboard')">
+                            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showScreen('screener')">
+                            <i class="fas fa-filter me-2"></i>Stock Screener
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showScreen('backtest')">
+                            <i class="fas fa-chart-area me-2"></i>Backtesting
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showScreen('portfolio')">
+                            <i class="fas fa-briefcase me-2"></i>Portfolio
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="mt-5">
+                    <h6 class="text-muted mb-3">Quick Stats</h6>
+                    <div class="small">
+                        <div>API Status: <span id="apiStatus" class="text-success">Online</span></div>
+                        <div>Last Update: <span id="lastUpdate">--</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 p-4">
+                <!-- Dashboard Screen -->
+                <div id="dashboard-screen" class="screen">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1>Dashboard</h1>
+                        <button class="btn btn-primary" onclick="refreshDashboard()">
+                            <i class="fas fa-sync me-2"></i>Refresh
+                        </button>
+                    </div>
+                    
+                    <!-- Key Metrics -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="card metric-card p-3">
+                                <h6>Total Strategies</h6>
+                                <h3 id="totalStrategies">--</h3>
+                                <small>Available screening strategies</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card metric-card p-3">
+                                <h6>Popular Stocks</h6>
+                                <h3 id="totalStocks">--</h3>
+                                <small>Ready for analysis</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card metric-card p-3">
+                                <h6>ETFs Available</h6>
+                                <h3 id="totalETFs">--</h3>
+                                <small>Exchange traded funds</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card metric-card p-3">
+                                <h6>System Status</h6>
+                                <h3 class="text-success">Active</h3>
+                                <small>All systems operational</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card p-4">
+                                <h5>Quick Screen</h5>
+                                <p class="text-muted">Run a momentum screen on popular stocks</p>
+                                <button class="btn btn-success" onclick="quickScreen()">
+                                    <i class="fas fa-bolt me-2"></i>Run Quick Screen
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card p-4">
+                                <h5>Sample Backtest</h5>
+                                <p class="text-muted">Test equal weight strategy on tech stocks</p>
+                                <button class="btn btn-info" onclick="sampleBacktest()">
+                                    <i class="fas fa-play me-2"></i>Run Sample Backtest
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stock Screener Screen -->
+                <div id="screener-screen" class="screen" style="display: none;">
+                    <h1 class="mb-4">Stock Screener</h1>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card p-3">
+                                <h5>Screening Parameters</h5>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Strategy Type</label>
+                                    <select id="screenerType" class="form-select">
+                                        <option value="">Select strategy...</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Stock Symbols</label>
+                                    <input type="text" id="stockSymbols" class="form-control" 
+                                           placeholder="AAPL, MSFT, GOOGL..." value="AAPL,MSFT,GOOGL,AMZN,TSLA">
+                                    <small class="form-text text-muted">Comma-separated symbols</small>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Quick Select</label>
+                                    <div class="btn-group-vertical w-100">
+                                        <button class="btn btn-outline-primary btn-sm" onclick="loadPopularStocks()">Popular Stocks</button>
+                                        <button class="btn btn-outline-primary btn-sm" onclick="loadPopularETFs()">Popular ETFs</button>
+                                    </div>
+                                </div>
+                                
+                                <button id="runScreenBtn" class="btn btn-success w-100" onclick="runScreening()">
+                                    <i class="fas fa-search me-2"></i>Run Screen
+                                </button>
+                                
+                                <div id="screeningLoading" class="text-center mt-3 loading">
+                                    <div class="spinner-border" role="status"></div>
+                                    <div>Screening stocks...</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-8">
+                            <div class="card p-3">
+                                <h5>Screening Results</h5>
+                                <div id="screeningResults">
+                                    <div class="text-center text-muted py-5">
+                                        <i class="fas fa-search fa-3x mb-3"></i>
+                                        <p>Run a screening strategy to see results here</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Backtesting Screen -->
+                <div id="backtest-screen" class="screen" style="display: none;">
+                    <h1 class="mb-4">Backtesting</h1>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card p-3">
+                                <h5>Backtest Parameters</h5>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Strategy</label>
+                                    <select id="backtestStrategy" class="form-select">
+                                        <option value="momentum">Momentum Strategy</option>
+                                        <option value="equal_weight">Equal Weight</option>
+                                        <option value="mean_reversion">Mean Reversion</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Stock Symbols</label>
+                                    <input type="text" id="backtestSymbols" class="form-control" 
+                                           placeholder="AAPL, MSFT, GOOGL..." value="AAPL,MSFT,GOOGL">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Initial Capital ($)</label>
+                                    <input type="number" id="initialCapital" class="form-control" value="100000">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Rebalance Frequency</label>
+                                    <select id="rebalanceFreq" class="form-select">
+                                        <option value="monthly">Monthly</option>
+                                        <option value="weekly">Weekly</option>
+                                        <option value="daily">Daily</option>
+                                    </select>
+                                </div>
+                                
+                                <button id="runBacktestBtn" class="btn btn-primary w-100" onclick="runBacktest()">
+                                    <i class="fas fa-play me-2"></i>Run Backtest
+                                </button>
+                                
+                                <div id="backtestLoading" class="text-center mt-3 loading">
+                                    <div class="spinner-border" role="status"></div>
+                                    <div>Running backtest...</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-8">
+                            <div id="backtestResults">
+                                <div class="text-center text-muted py-5">
+                                    <i class="fas fa-chart-line fa-3x mb-3"></i>
+                                    <p>Run a backtest to see performance results here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Screen -->
+                <div id="portfolio-screen" class="screen" style="display: none;">
+                    <h1 class="mb-4">Portfolio Analysis</h1>
+                    <div class="card p-4">
+                        <div class="text-center text-muted py-5">
+                            <i class="fas fa-briefcase fa-3x mb-3"></i>
+                            <p>Portfolio analysis features coming soon...</p>
+                            <p>This will include position sizing, risk management, and portfolio optimization tools.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/src/app.js"></script>
+</body>
+</html>
