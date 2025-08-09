@@ -16,9 +16,9 @@ class ProxyDetector:
     def __init__(self):
         self.corporate_proxy = "http://cba.proxy.prismaaccess.com:8080"
         self.test_urls = [
-            "https://query1.finance.yahoo.com/v7/finance/quote?symbols=AAPL",
-            "https://query2.finance.yahoo.com/v7/finance/quote?symbols=MSFT",
             "https://httpbin.org/ip",
+            "https://httpbin.org/get",
+            "https://jsonplaceholder.typicode.com/posts/1",
             "https://www.google.com"
         ]
         self.corporate_indicators = [
