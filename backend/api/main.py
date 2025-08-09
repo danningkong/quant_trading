@@ -162,7 +162,27 @@ async def get_screener_types():
 async def get_popular_symbols():
     """Get popular stock and ETF symbols"""
     try:
-        stocks = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "META", "NVDA", "NFLX", "JPM", "V"]
+        stocks = ["NVDA", "AVGO", "AMD", "TXN", "QCOM", "AMAT", "LRCX", "KLAC", "MU", "ADI",
+                    "INTC", "MRVL", "SMCI", "MCHP", "MPWR", "ON", "TER", "SWKS", "QRVO", "ENTG",
+                    "ASML", "NXPI", "IFNNY", "IFNNF", "ADTTF", "ATEYY", "DISPF", "DSCSY", "STM",
+                    "GFS", "ALAB", "UMC", "ASX", "RNECY", "RNECF", "TSM", "TSMWF", "ASMLF",
+                    "PLTR", "CDNS", "SNPS", "CRWD", "DDOG", "NET", "MSTR", "QSI", "RIOT", "INOD",
+                    "APP", "TTD", "HUBS", "ANET", "C3.ai", "SOUN", "ASTS", "W", "FUBO", "AUR",
+                    "LCID", "RIVN", "XPEV", "LI", "NIO", "KSPI", "SEZL", "RDDT", "BSQKZ", "SNEJF",
+                    "SSNLF", "XIACF", "XIACY", "GRAB", "AFRM", "DUOL", "SOFI", "UPST", "IBKR",
+                    "MTCH", "RDFN", "ARKK", "ARKF", "ARKG", "ARKW", "ARKX", "MSFT", "ORCL",
+                    "CRM", "NOW", "OKTA", "TEAM", "DOCU", "AKAM", "FFIV", "NTAP", "VRT", "SNOW",
+                    "MDB", "VRSN", "CPAY", "NTNX", "ANSS", "PTC", "SSNC", "MANH", "CDAY", "PAYC",
+                    "TWLO", "FICO", "DT", "ADSK", "TYL", "GWRE", "MNDY", "WK", "PAYX", "INTU",
+                    "WDAY", "ADBE", "CSCO", "IBM", "EQIX", "DLR", "CBRE", "VRTX", "PANW", "FTNT",
+                    "ZS", "CHKP", "CYBR", "GEN", "WDC", "BIDU", "SINA", "NTES", "JD", "PDD",
+                    "BABA", "BZ", "CLSK", "CLBT", "ARWR", "ACMR", "AXON", "GNRC", "APPN", "SAP",
+                    "SAPGF", "AEXAF", "AEXAY", "FJTSF", "FJTSY", "BILL", "ZUO", "SHOP", "SQ",
+                    "UBER", "GRUB", "GM", "SONY", "AMZN", "EBAY", "MELI", "AAPL", "GOOGL", "META",
+                    "TSLA", "NFLX", "V", "MA", "AXP", "COIN", "JNJ", "PFE", "MRK", "ABBV", "AMGN",
+                    "GILD", "BMY", "CVS", "UNH", "ANTM", "CI", "CNC", "HUM", "WBA", "LLY", "REGN",
+                    "ISRG", "ABT", "MDT", "SYK", "BSX", "ZBH", "BIIB", "ALXN", "VRTXF"
+                    ]
         etfs = data_fetcher.get_popular_etfs()[:10]  # Top 10 ETFs
         
         return {
