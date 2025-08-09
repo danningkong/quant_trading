@@ -202,11 +202,14 @@ async def screen_stocks(request: ScreeningRequest):
                           for k, v in row['metrics'].items()}
             })
         
-        return {
+        response_data = {
             "results": screening_results,
             "total_screened": len(stock_data_dict),
             "total_results": len(results)
         }
+        
+        # Clean numeric values to prevent JSON serialization errors
+        return clean_numeric_values(response_data)
         
     except HTTPException:
         raise

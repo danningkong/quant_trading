@@ -102,6 +102,106 @@
             border-radius: 4px;
             padding: 2px 8px;
         }
+        
+        /* Log Window Styles */
+        #logWindow {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 400px;
+            background: #1a1a1a;
+            color: #ffffff;
+            border-top: 2px solid #3498db;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        #logWindow.show {
+            transform: translateY(0);
+        }
+        
+        .log-header {
+            background: #2c3e50;
+            padding: 10px 15px;
+            border-bottom: 1px solid #34495e;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+        
+        .log-content {
+            height: calc(100% - 50px);
+            overflow-y: auto;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+        
+        .log-entry {
+            margin-bottom: 4px;
+            padding: 2px 5px;
+            border-radius: 3px;
+            word-wrap: break-word;
+        }
+        
+        .log-entry.INFO {
+            color: #ffffff;
+        }
+        
+        .log-entry.WARNING {
+            background: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+        }
+        
+        .log-entry.ERROR {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+        
+        .log-entry.DEBUG {
+            color: #95a5a6;
+        }
+        
+        .log-timestamp {
+            color: #7f8c8d;
+            margin-right: 8px;
+        }
+        
+        .log-level {
+            font-weight: bold;
+            margin-right: 8px;
+            min-width: 60px;
+            display: inline-block;
+        }
+        
+        .log-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .log-controls select,
+        .log-controls button {
+            background: #34495e;
+            color: white;
+            border: 1px solid #4a6741;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+        
+        .log-controls button:hover {
+            background: #4a6741;
+        }
+        
+        .log-stats {
+            color: #bdc3c7;
+            font-size: 0.8em;
+        }
     </style>
 </head>
 <body>
@@ -135,6 +235,16 @@
                             <i class="fas fa-briefcase me-2"></i>Portfolio
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="toggleLogWindow()">
+                            <i class="fas fa-terminal me-2"></i>System Logs
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2">
+                        <a class="nav-link text-danger" href="#" onclick="shutdownServer()" style="border: 1px solid #dc3545;">
+                            <i class="fas fa-power-off me-2"></i>Shutdown Server
+                        </a>
+                    </li>
                 </ul>
                 
                 <div class="mt-5">
@@ -142,6 +252,8 @@
                     <div class="small">
                         <div>API Status: <span id="apiStatus" class="text-success">Online</span></div>
                         <div>Last Update: <span id="lastUpdate">--</span></div>
+                        <div>Total Logs: <span id="totalLogs">--</span></div>
+                        <div>Errors: <span id="errorCount" class="text-warning">--</span></div>
                     </div>
                 </div>
             </div>
@@ -339,6 +451,44 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Log Window -->
+    <div id="logWindow">
+        <div class="log-header">
+            <div class="d-flex align-items-center">
+                <h6 class="mb-0 me-3">
+                    <i class="fas fa-terminal me-2"></i>System Logs
+                </h6>
+                <div class="log-stats">
+                    <span id="logWindowStats">Loading...</span>
+                </div>
+            </div>
+            <div class="log-controls">
+                <select id="logLevelFilter" onchange="filterLogs()">
+                    <option value="">All Levels</option>
+                    <option value="ERROR">Errors Only</option>
+                    <option value="WARNING">Warnings+</option>
+                    <option value="INFO">Info+</option>
+                    <option value="DEBUG">Debug+</option>
+                </select>
+                <button onclick="clearLogs()" title="Clear logs">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <button onclick="refreshLogs()" title="Refresh logs">
+                    <i class="fas fa-sync"></i>
+                </button>
+                <button onclick="toggleLogWindow()" title="Close logs">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="log-content" id="logContent">
+            <div class="text-center text-muted py-4">
+                <i class="fas fa-terminal fa-2x mb-2"></i>
+                <p>Loading system logs...</p>
             </div>
         </div>
     </div>

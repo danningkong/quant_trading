@@ -7,11 +7,23 @@ let globalData = {
     currentScreen: 'dashboard'
 };
 
+// Log management
+let logData = {
+    logs: [],
+    eventSource: null,
+    isLogWindowOpen: false,
+    currentFilter: ''
+};
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Quant Trading Platform initializing...');
     loadInitialData();
     checkAPIHealth();
+    loadLogStats();
+    
+    // Start periodic log stats updates
+    setInterval(loadLogStats, 10000); // Update every 10 seconds
 });
 
 // API Helper Functions
@@ -888,4 +900,234 @@ function updateSelectedCount() {
 
 function exportResults(type) {
     showAlert(`Export functionality for ${type} results coming soon!`, 'info');
+}
+
+// ========================================
+// LOG MANAGEMENT FUNCTIONS
+// ========================================
+
+async function loadLogStats() {
+    // Load log statistics for sidebar display
+    try {
+        const stats = await apiCall('/logs/stats');
+        
+        document.getElementById('totalLogs').textContent = stats.total_logs || 0;
+        document.getElementById('errorCount').textContent = stats.level_counts?.ERROR || 0;
+        
+        // Update log window stats if open
+        if (logData.isLogWindowOpen) {
+            const errorCount = stats.level_counts?.ERROR || 0;
+            const warningCount = stats.level_counts?.WARNING || 0;
+            document.getElementById('logWindowStats').textContent = 
+                `${stats.total_logs} total | ${errorCount} errors | ${warningCount} warnings`;
+        }
+    } catch (error) {
+        console.error('Failed to load log stats:', error);
+    }
+}
+
+function toggleLogWindow() {
+    // Toggle the log window visibility
+    const logWindow = document.getElementById('logWindow');
+    logData.isLogWindowOpen = !logData.isLogWindowOpen;
+    
+    if (logData.isLogWindowOpen) {
+        logWindow.classList.add('show');
+        loadLogs();
+        startLogStreaming();
+    } else {
+        logWindow.classList.remove('show');
+        stopLogStreaming();
+    }
+}
+
+async function loadLogs() {
+    // Load recent logs
+    try {
+        const response = await apiCall('/logs?limit=200');
+        logData.logs = response.logs || [];
+        displayLogs();
+    } catch (error) {
+        console.error('Failed to load logs:', error);
+        document.getElementById('logContent').innerHTML = `
+            <div class="text-center text-danger py-4">
+                <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+                <p>Failed to load logs</p>
+                <small>${error.message}</small>
+            </div>
+        `;
+    }
+}
+
+function displayLogs() {
+    // Display logs in the log window
+    const container = document.getElementById('logContent');
+    let filteredLogs = logData.logs;
+    
+    // Apply level filter
+    if (logData.currentFilter) {
+        const levelPriority = {
+            'DEBUG': 0,
+            'INFO': 1,
+            'WARNING': 2,
+            'ERROR': 3,
+            'CRITICAL': 4
+        };
+        
+        const minLevel = levelPriority[logData.currentFilter] || 0;
+        filteredLogs = logData.logs.filter(log => 
+            (levelPriority[log.level] || 0) >= minLevel
+        );
+    }
+    
+    if (filteredLogs.length === 0) {
+        container.innerHTML = `
+            <div class="text-center text-muted py-4">
+                <i class="fas fa-search fa-2x mb-2"></i>
+                <p>No logs found matching the current filter</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Build log HTML
+    let html = '';
+    filteredLogs.slice(-100).forEach(log => {  // Show last 100 logs
+        const timestamp = new Date(log.timestamp).toLocaleTimeString();
+        const level = log.level || 'INFO';
+        
+        html += `
+            <div class="log-entry ${level}">
+                <span class="log-timestamp">${timestamp}</span>
+                <span class="log-level">${level}</span>
+                ${escapeHtml(log.message)}
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+    
+    // Auto-scroll to bottom
+    container.scrollTop = container.scrollHeight;
+}
+
+function startLogStreaming() {
+    // Start real-time log streaming
+    if (logData.eventSource) {
+        logData.eventSource.close();
+    }
+    
+    try {
+        logData.eventSource = new EventSource(`${API_BASE}/api/logs/stream`);
+        
+        logData.eventSource.onmessage = function(event) {
+            try {
+                const logEntry = JSON.parse(event.data);
+                
+                if (logEntry.type === 'keepalive') {
+                    return; // Ignore keepalive messages
+                }
+                
+                // Add new log entry
+                logData.logs.push(logEntry);
+                
+                // Keep only last 1000 logs in memory
+                if (logData.logs.length > 1000) {
+                    logData.logs = logData.logs.slice(-1000);
+                }
+                
+                // Update display
+                displayLogs();
+                
+                // Update stats
+                loadLogStats();
+                
+            } catch (error) {
+                console.error('Error parsing log stream:', error);
+            }
+        };
+        
+        logData.eventSource.onerror = function(error) {
+            console.error('Log stream error:', error);
+            showAlert('Log streaming connection lost. Logs will not update in real-time.', 'warning');
+        };
+        
+    } catch (error) {
+        console.error('Failed to start log streaming:', error);
+    }
+}
+
+function stopLogStreaming() {
+    // Stop real-time log streaming
+    if (logData.eventSource) {
+        logData.eventSource.close();
+        logData.eventSource = null;
+    }
+}
+
+function filterLogs() {
+    // Filter logs by level
+    const filter = document.getElementById('logLevelFilter').value;
+    logData.currentFilter = filter;
+    displayLogs();
+}
+
+function clearLogs() {
+    // Clear the log display
+    if (confirm('Clear all logs from display? (This will not delete server logs)')) {
+        logData.logs = [];
+        displayLogs();
+        showAlert('Log display cleared', 'info');
+    }
+}
+
+function refreshLogs() {
+    // Refresh logs
+    loadLogs();
+    showAlert('Logs refreshed', 'success');
+}
+
+function escapeHtml(text) {
+    // Escape HTML characters in log messages
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Server shutdown function
+async function shutdownServer() {
+    if (confirm('Are you sure you want to shutdown the server? This will stop the application.')) {
+        try {
+            showAlert('Shutting down server...', 'warning');
+            
+            const response = await fetch(`${API_BASE}/api/shutdown`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                showAlert('Server shutdown initiated successfully', 'success');
+                
+                // Update UI to show server is offline
+                document.getElementById('apiStatus').textContent = 'Offline';
+                document.getElementById('apiStatus').className = 'text-danger';
+                
+                // Disable all buttons after 1 second
+                setTimeout(() => {
+                    const buttons = document.querySelectorAll('button, .nav-link');
+                    buttons.forEach(btn => btn.disabled = true);
+                    showAlert('Server is now offline', 'info');
+                }, 1000);
+                
+            } else {
+                showAlert('Failed to shutdown server', 'danger');
+            }
+        } catch (error) {
+            console.error('Shutdown error:', error);
+            showAlert('Error during server shutdown', 'danger');
+        }
+    }
 }
