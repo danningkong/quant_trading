@@ -25,6 +25,8 @@ if __name__ == "__main__":
             reload=False,
             log_level="info"
         )
+    except KeyboardInterrupt:
+        print("\nServer stopped by Ctrl+C")
     except Exception as e:
         print(f"Server startup error: {e}")
         input("Press Enter to exit...")

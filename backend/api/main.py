@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
@@ -22,7 +22,6 @@ import math
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 def clean_numeric_values(obj: Any) -> Any:
     """Clean numeric values to avoid JSON serialization issues"""
     if isinstance(obj, dict):
@@ -60,6 +59,34 @@ else:
 data_fetcher = DataFetcher()
 stock_screener = StockScreener()
 screener_backtester = ScreenerBacktestIntegrator()
+
+# Simple logging solution to avoid conflicts
+from collections import deque
+from datetime import datetime as dt
+import threading
+
+# Simple in-memory log storage
+_log_storage = deque(maxlen=500)  # Keep last 500 log entries
+_log_lock = threading.Lock()
+
+def add_api_log(level: str, message: str):
+    """Add a log entry to our simple storage"""
+    with _log_lock:
+        _log_storage.append({
+            'timestamp': dt.now().isoformat(),
+            'level': level,
+            'logger': 'api',
+            'message': message
+        })
+
+def get_api_logs(limit: int = 100):
+    """Get recent API logs"""
+    with _log_lock:
+        logs = list(_log_storage)[-limit:]
+        return logs
+
+# Add initial log
+add_api_log('INFO', 'API logging system initialized')
 
 # Pydantic models for API
 class ScreeningRequest(BaseModel):
@@ -151,6 +178,7 @@ async def get_popular_symbols():
 async def screen_stocks(request: ScreeningRequest):
     """Screen stocks based on selected criteria"""
     try:
+        add_api_log('INFO', f'Starting stock screening for {len(request.symbols)} symbols with {request.screener_type} strategy')
         # Validate screener type
         try:
             screener_type = ScreenerType(request.screener_type)
@@ -207,6 +235,8 @@ async def screen_stocks(request: ScreeningRequest):
             "total_screened": len(stock_data_dict),
             "total_results": len(results)
         }
+        
+        add_api_log('INFO', f'Stock screening completed: {len(results)} results from {len(stock_data_dict)} stocks')
         
         # Clean numeric values to prevent JSON serialization errors
         return clean_numeric_values(response_data)
@@ -550,6 +580,93 @@ async def get_engine_status():
         },
         "default_engine": "custom"
     }
+
+@app.get("/api/test-logs")
+async def test_logs():
+    """Test endpoint for log functionality"""
+    return {
+        "log_manager_available": LOG_MANAGER_AVAILABLE,
+        "message": "Log functionality test endpoint"
+    }
+
+@app.get("/api/logs")
+async def get_logs(limit: int = 100, level: str = None):
+    """Get recent log entries"""
+    try:
+        logs = get_api_logs(limit)
+        
+        # Filter by level if specified
+        if level:
+            logs = [log for log in logs if log['level'] == level or 
+                   (level == 'WARNING' and log['level'] in ['WARNING', 'ERROR']) or
+                   (level == 'INFO' and log['level'] in ['INFO', 'WARNING', 'ERROR'])]
+        
+        return {
+            "logs": logs,
+            "total": len(logs),
+            "timestamp": datetime.now().isoformat()
+        }
+    except Exception as e:
+        logger.error(f"Error getting logs: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/logs/stats")
+async def get_log_stats():
+    """Get log statistics"""
+    try:
+        logs = get_api_logs(500)  # Get all logs for stats
+        
+        level_counts = {}
+        for log in logs:
+            level = log['level']
+            level_counts[level] = level_counts.get(level, 0) + 1
+        
+        recent_errors = [log for log in logs if log['level'] in ['ERROR', 'CRITICAL']]
+        
+        return {
+            'total_logs': len(logs),
+            'level_counts': level_counts,
+            'recent_errors': recent_errors[-10:],  # Last 10 errors
+            'last_update': datetime.now().isoformat()
+        }
+    except Exception as e:
+        logger.error(f"Error getting log stats: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/logs/stream")
+async def stream_logs():
+    """Stream logs in real-time using Server-Sent Events (simplified)"""
+    async def simple_log_stream():
+        # For now, just send periodic updates with current logs
+        import asyncio
+        last_count = 0
+        
+        while True:
+            try:
+                current_logs = get_api_logs(10)  # Get last 10 logs
+                if len(current_logs) > last_count:
+                    # Send new logs
+                    for log in current_logs[last_count:]:
+                        yield f"data: {json.dumps(log)}\n\n"
+                    last_count = len(current_logs)
+                else:
+                    # Send keepalive
+                    yield f"data: {json.dumps({'type': 'keepalive', 'timestamp': datetime.now().isoformat()})}\n\n"
+                
+                await asyncio.sleep(2)  # Check every 2 seconds
+                
+            except Exception as e:
+                logger.error(f"Error in log stream: {e}")
+                break
+    
+    return StreamingResponse(
+        simple_log_stream(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+        }
+    )
 
 if __name__ == "__main__":
     import uvicorn

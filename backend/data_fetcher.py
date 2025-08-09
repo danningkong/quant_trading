@@ -15,8 +15,23 @@ class DataFetcher:
     def __init__(self):
         self.cache = {}
         self.demo_mode = False
-        self.proxy_detector = ProxyDetector()
-        self._setup_proxy()
+        self.proxy_detector = None
+        self.proxies = None
+        # Don't block server startup with proxy detection
+        # Proxy will be set up on first use
+        self._proxy_initialized = False
+    
+    def _ensure_proxy_initialized(self):
+        """Initialize proxy settings if not already done"""
+        if not self._proxy_initialized:
+            try:
+                self.proxy_detector = ProxyDetector()
+                self._setup_proxy()
+                self._proxy_initialized = True
+            except Exception as e:
+                logger.warning(f"Proxy initialization failed: {e}")
+                self.proxies = None
+                self._proxy_initialized = True  # Don't keep trying
         
     def _setup_proxy(self):
         """Configure proxy settings based on network detection"""
@@ -85,6 +100,9 @@ class DataFetcher:
         try:
             if f"{symbol}_{period}" in self.cache:
                 return self.cache[f"{symbol}_{period}"]
+            
+            # Initialize proxy settings on first use
+            self._ensure_proxy_initialized()
             
             # Try direct Yahoo Finance API call with proxy
             data = self._fetch_yahoo_data_direct(symbol, period)
